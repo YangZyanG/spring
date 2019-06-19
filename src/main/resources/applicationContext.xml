@@ -3,6 +3,30 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="myTestBean" class="bean.MyTestBean"/>
+    <!-- 如果不指定id，则以name属性的第一个值为beanName -->
+    <!-- 如果不指定id、name，则以spring命名规则生成beanName，一般为class属性的值 -->
+    <!--<bean id="myTestBean" name="1, 2" class="bean.MyTestBean"/>-->
+
+    <!-- 通过工厂实例的工厂方法注入bean -->
+    <bean id="myTestBeanFactory" class="factoryBean.MyTestBeanFactory"/>
+    <bean id="myTestBean" factory-bean="myTestBeanFactory" factory-method="getBean">
+        <!-- 额外属性，并不会体现在myTestBean类中 -->
+        <!-- 需要的时候可以通过BeanDefinition的getAttribute(key)方法获取，BeanDefinition实例可通过BeanFactory获取 -->
+        <meta key="test" value="hahaha"/>
+    </bean>
+
+    <!-- lookup-method是一种特殊的方法注入 -->
+    <!-- 它是把方法声明为返回某种类型的bean，但实际要返回的bean是在配置文件里面配置的 -->
+    <!-- 这里getBean方法返回的是User类型，但我们配置的User的子类Teacher，User有多少子类就可以返回多少类型，针对每个类型有不同的实现 -->
+    <bean id="lookupMethod" class="abstractBean.LookupMethodAbstract">
+        <lookup-method name="getBean" bean="teacher"/>
+    </bean>
+    <bean id="teacher" class="bean.Teacher"/>
+
+    <!-- replaced-method不但可以动态替换返回实体bean，还可以动态的更改原有方法的逻辑 -->
+    <bean id="changeMe" class="bean.ChangeMe">
+        <replaced-method name="changeMe" replacer="change"/>
+    </bean>
+    <bean id="change" class="bean.Change"/>
 
 </beans>

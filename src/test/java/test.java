@@ -1,6 +1,8 @@
 import abstractBean.LookupMethodAbstract;
 import bean.ChangeMe;
+import bean.ImportBean;
 import bean.MyTestBean;
+import customize.bean.User;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -33,5 +35,26 @@ public class test {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         ChangeMe changeMe = (ChangeMe) applicationContext.getBean("changeMe");
         changeMe.changeMe();
+    }
+
+    @Test
+    public void alias(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        MyTestBean myTestBean = (MyTestBean) applicationContext.getBean("aliasMyTestBean");
+        System.out.println("name:" + myTestBean.getTest());
+    }
+
+    @Test
+    public void importBean(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ImportBean importBean = (ImportBean) applicationContext.getBean("importBean");
+        importBean.importBean();
+    }
+
+    @Test
+    public void customize(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        User user = (customize.bean.User) applicationContext.getBean("A");
+        System.out.println(user.toString());
     }
 }

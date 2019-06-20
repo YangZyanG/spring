@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:customize="http://www.yangzy.com/schema/user"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.yangzy.com/schema/user http://www.yangzy.com/schema/user.xsd">
+
+    <!-- 自定义标签的使用 -->
+
+    <!--
+        自定义标签步骤
+        1.创建一个需要扩展的组件，这里我们就创建一个POJO，这个POJO并没有什么特别之处，路径：customizeBean.User。
+
+        2.定义一个XSD文件描述组件内容，这里我们定义一个user.xsd文件放到resources/xsd下面。
+
+        3.创建一个parser类，实现BeanDefinitionParser接口，用来解析XSD文件中的定义和组件定义。
+
+        4.创建一个Handler类，扩展自NamespaceHandlerSupport，目的是将组件注册到spring容器。
+
+        5.编写spring.handler和spring.schema文件。
+    -->
+
+    <customize:user id="user" userName="yangzy" email="183243005@qq.com"/>
+    <customize:A id="A" userName="yangzy"/>
+    <customize:B id="B" userName="yangzy"/>
+
+    <!--
+
+        自定义标签解析流程
+        1.首先根据namespace获取对应的namespaceURI。
+        上述配置中有这么一段：xmlns:customize="http://www.yangzy.com/schema/user"
+        其中命名空间namespace是customize，对应的namespaceURI为http://www.yangzy.com/schema/user。
+
+        2.根据对应的namespaceURI找到对应的namespaceHandler。
+        namespaceURI为http://www.yangzy.com/schema/user，根据这个URI，spring会去找spring.handler中这个URI对应的自定义namespaceHandler类。
+
+        3.得到自定义namespaceHandler类之后，执行该类的init()方法，来进行自定义BeanDefinitionParser解析器的注册。
+        上面配置了三个标签customize:user、customize:A、customize:B，所以在我们的UserNamespaceHandler中我们三个标签的标签解析器都要注册，
+        否则解析到这三个标签的时候，发现没有对应的解析器，就会报错。
+        registerBeanDefinitionParser("user", new UserBeanDefinitionParser());
+        registerBeanDefinitionParser("A", new UserBeanDefinitionParser());
+        registerBeanDefinitionParser("B", new UserBeanDefinitionParser());
+        注册完后，当解析标签的时候，会根据标签名去找对应的解析器来解析该标签。
+
+        4.解析完后就是加载bean了。
+    -->
+
+</beans>

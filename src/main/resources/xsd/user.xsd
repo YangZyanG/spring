@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.yangzy.com/schema/user"
+        xmlns:tns="http://www.yangzy.com/schema/user" elementFormDefault="qualified">
+
+    <!-- xsd文件的作用就是规范、限制你在配置文件中的标签、属性 -->
+    <element name="user">
+        <complexType>
+            <attribute name="id" type="string"/>
+            <attribute name="userName" type="string"/>
+            <attribute name="email" type="string"/>
+        </complexType>
+    </element>
+
+    <element name="A">
+        <complexType>
+            <attribute name="id" type="string"/>
+            <attribute name="userName" type="string"/>
+        </complexType>
+    </element>
+
+    <element name="B">
+        <complexType>
+            <attribute name="id" type="string"/>
+            <attribute name="userName" type="string"/>
+        </complexType>
+    </element>
+</schema>

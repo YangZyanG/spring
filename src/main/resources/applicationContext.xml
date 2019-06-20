@@ -29,4 +29,11 @@
     </bean>
     <bean id="change" class="bean.Change"/>
 
+    <!-- alias标签指定bean的别名 -->
+    <!-- 我们给上面的myTestBean定一个别名，然后根据这个别名来获取实例 -->
+    <alias name="myTestBean" alias="aliasMyTestBean"/>
+
+    <!-- 通过import标签导入其他配置文件 -->
+    <import resource="myApplicationContext.xml"/>
+    <import resource="customize.xml"/>
 </beans>

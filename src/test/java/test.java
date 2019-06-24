@@ -3,6 +3,8 @@ import bean.ChangeMe;
 import bean.ImportBean;
 import bean.MyTestBean;
 import customize.bean.User;
+import factoryBean.Car;
+import factoryBean.CarFactoryBean;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -54,7 +56,17 @@ public class test {
     @Test
     public void customize(){
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = (customize.bean.User) applicationContext.getBean("A");
+        User user = (customize.bean.User) applicationContext.getBean("user");
         System.out.println(user.toString());
+    }
+
+    @Test
+    public void factoryBean(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("myFactoryBean.xml");
+        Car car = (Car) applicationContext.getBean("car");
+        System.out.println(car.toString());
+
+        CarFactoryBean carFactoryBean = (CarFactoryBean) applicationContext.getBean("&car");
+        System.out.println(carFactoryBean.getCarInfo());
     }
 }

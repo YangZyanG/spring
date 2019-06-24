@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 传统配置方式 -->
+    <!--<bean id="car" class="factoryBean.Car">-->
+        <!--<property name="maxSpeed" value="400"/>-->
+        <!--<property name="brand" value="超级跑车"/>-->
+        <!--<property name="price" value="2000000"/>-->
+    <!--</bean>-->
+
+    <!-- 实现FactoryBean的配置方式 -->
+    <!--
+        当调用getBean()方法时，Spring通过反射机制发现CarFactoryBean实现了FactoryBean的接口，
+        这时Spring容器就会调用CarFactoryBean重写的getObject()方法返回对应实例。
+        如果希望获取工厂实例，及获取CarFactoryBean的实例，只需在beanName前面加上"&"即可，如getBean(&car);
+     -->
+    <bean id="car" class="factoryBean.CarFactoryBean">
+        <property name="carInfo" value="超级跑车,400,2000000"/>
+    </bean>
+</beans>

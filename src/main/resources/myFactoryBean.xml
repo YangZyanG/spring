@@ -19,4 +19,31 @@
     <bean id="car" class="factoryBean.CarFactoryBean">
         <property name="carInfo" value="超级跑车,400,2000000"/>
     </bean>
+
+    <!-- 循环依赖问题 -->
+    <!--
+        在spring中将循环依赖的处理分成三种情况：
+        1.构造器循环依赖
+        表示通过构造器注入构成的循环依赖，此依赖是无法解决的，只能抛出BeanCreationException异常表示循环依赖。
+        spring将每一个正在创建的bean标识符放在一个"当前创建bean池"，bean标识符在创建过程中将一直保持在这个池中，
+        所以在创建bean的时候发现当前bean的标识符已经存在在该池时，就会抛出BeanCreationException异常。
+        例子的创建过程：
+        spring容器创建"a"bean，首先去"当前创建bean池"检查"a"标识符是否存在，如果不存在，则继续准备"a"bean中构造器依赖的"b"bean，并将"a"标识符放入创建池。
+        spring容器创建"b"bean，首先去"当前创建bean池"检查"b"标识符是否存在，如果不存在，则继续准备"b"bean中构造器依赖的"a"bean，并将"b"标识符放入创建池。
+        最后再去创建"a"bean的时候，发现"当前创建bean池"中已经有"a"bean存在了，抛出BeanCreationException异常。
+
+        2.setter循环依赖
+        表示通过setter注入方式构成的循环依赖。
+        对于setter注入造成的依赖是通过spring容器提前暴露刚完成构造器注入但未完成其他步骤(如setter注入)的bean来完成的，而且只能解决单例作用域的bean循环依赖。
+        通过提前暴露一个单例工厂方法，从而使其他bean能引用到该bean。
+
+        3.prototype范围的依赖处理
+        对于"prototype"作用域的bean，spring容器无法完成依赖注入，因为spring容器不缓存"prototype"作用域的bean，因此无法提前暴露一个创建中的bean。
+
+        最后对于"singleton"作用域的bean，可以通过"setAllowCircularReferences(false)"来禁用循环依赖。
+    -->
+
+    <!-- 构造器循环依赖示例 -->
+    <bean id="a" class="bean.cycle.CycleA"/>
+    <bean id="b" class="bean.cycle.CycleB"/>
 </beans>

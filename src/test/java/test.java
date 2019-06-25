@@ -69,4 +69,9 @@ public class test {
         CarFactoryBean carFactoryBean = (CarFactoryBean) applicationContext.getBean("&car");
         System.out.println(carFactoryBean.getCarInfo());
     }
+
+    @Test
+    public void cycle(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("myFactoryBean.xml");
+    }
 }

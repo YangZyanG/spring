@@ -41,6 +41,9 @@
         对于"prototype"作用域的bean，spring容器无法完成依赖注入，因为spring容器不缓存"prototype"作用域的bean，因此无法提前暴露一个创建中的bean。
 
         最后对于"singleton"作用域的bean，可以通过"setAllowCircularReferences(false)"来禁用循环依赖。
+        不要使用基于构造函数的依赖注入，可以通过以下方式解决：
+        1.在字段上使用@Autowired注解，让Spring决定在合适的时机注入。
+        2.用基于setter方法的依赖注入。
     -->
 
     <!-- 构造器循环依赖示例 -->

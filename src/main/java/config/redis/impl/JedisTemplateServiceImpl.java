@@ -1,18 +1,30 @@
 package config.redis.impl;
 
-import config.redis.JedisTemplate;
+import config.redis.JedisTemplateService;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Repository("jedisTemplate")
-public class JedisTemplateImpl<K, V> implements JedisTemplate<K, V> {
+public class JedisTemplateServiceImpl<K, V> implements JedisTemplateService<K, V> {
 
     @Autowired
     private RedisTemplate<K, V> redisTemplate;
+
+//    private RedisConnectionFactory factory;
+//    private RedisConnection connection;
+
+//    public void afterPropertiesSet() throws Exception {
+//        factory = redisTemplate.getConnectionFactory();
+//        connection = factory.getConnection();
+//    }
 
     public boolean set(final K key, V value) {
         boolean r = false;
@@ -119,6 +131,16 @@ public class JedisTemplateImpl<K, V> implements JedisTemplate<K, V> {
     public V rPop(final K key) {
         ListOperations<K, V> operations = redisTemplate.opsForList();
         return operations.rightPop(key);
+    }
+
+    public V blPop(K key, long l) {
+        ListOperations<K, V> operations = redisTemplate.opsForList();
+        return operations.leftPop(key, l, TimeUnit.SECONDS);
+    }
+
+    public V brPop(K key, long l) {
+        ListOperations<K, V> operations = redisTemplate.opsForList();
+        return operations.rightPop(key, l, TimeUnit.SECONDS);
     }
 
     public boolean sAdd(final K key, V ... value) {

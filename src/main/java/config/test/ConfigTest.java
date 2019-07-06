@@ -1,19 +1,20 @@
 package config.test;
 
-import bean.Teacher;
-import config.redis.JedisTemplate;
+import config.redis.JedisTemplateService;
+import config.thread.ThreadPool;
+import entity.redis.EventType;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.Map;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class ConfigTest {
 
     @Test
     public void redis(){
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("redis.xml");
-        JedisTemplate jedisTemplate = (JedisTemplate) applicationContext.getBean("jedisTemplate");
+        JedisTemplateService jedisTemplate = (JedisTemplateService) applicationContext.getBean("jedisTemplate");
 //        jedisTemplate.set("2", "2");
 //
 //        Teacher teacher = new Teacher();
@@ -38,7 +39,7 @@ public class ConfigTest {
     public static void main(String[] args) {
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("redis.xml");
-        final JedisTemplate jedis = (JedisTemplate) applicationContext.getBean("jedisTemplate");
+        final JedisTemplateService jedis = (JedisTemplateService) applicationContext.getBean("jedisTemplate");
 
         for (int i=0; i<10; ++i){
 
@@ -54,5 +55,17 @@ public class ConfigTest {
 
         }
 
+    }
+
+    @Test
+    public void thread() throws Exception {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("redis.xml");
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) applicationContext.getBean("threadPoolExecutor");
+        System.out.println(executor);
+    }
+
+    @Test
+    public void enumTest(){
+        System.out.println(EventType.COMMENT);
     }
 }

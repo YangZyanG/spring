@@ -8,6 +8,7 @@
     <context:property-placeholder location="META-INF/redis.properties" ignore-unresolvable="true"/>
 
     <context:component-scan base-package="config.redis"/>
+    <context:component-scan base-package="config.thread"/>
 
     <bean id="redisSentinelConfiguration" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
 

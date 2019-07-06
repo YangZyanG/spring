@@ -3,7 +3,7 @@ package config.redis;
 import java.util.Map;
 import java.util.Set;
 
-public interface JedisTemplate<K, V> {
+public interface JedisTemplateService<K, V> {
 
     boolean set(K key, V value);
 
@@ -26,6 +26,10 @@ public interface JedisTemplate<K, V> {
     V lPop(K key);
 
     V rPop(K key);
+
+    V blPop(K key, long l);
+
+    V brPop(K key, long l);
 
     boolean sAdd(K key, V ... value);
 

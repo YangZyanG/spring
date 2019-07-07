@@ -1,5 +1,7 @@
 package config.redis;
 
+import org.springframework.data.redis.core.RedisTemplate;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -36,4 +38,6 @@ public interface JedisTemplateService<K, V> {
     Set<V> sGet(K key);
 
     Long increment(final K key);
+
+    RedisTemplate getTemplate();
 }

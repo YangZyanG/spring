@@ -9,8 +9,13 @@ import entity.redis.EventType;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SessionCallback;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -89,5 +94,29 @@ public class ConfigTest {
         model.setExtraInfo(map);
 
         eventProducer.pushEvent(model);
+    }
+
+    @Test
+    public void txRedis(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("redis.xml");
+        JedisTemplateService jedisTemplate = (JedisTemplateService) applicationContext.getBean("jedisTemplate");
+
+        RedisTemplate template = jedisTemplate.getTemplate();
+        template.execute(new SessionCallback<List<Object>>() {
+
+            public List<Object> execute(RedisOperations redisOperations) throws DataAccessException {
+                //开启事务
+                redisOperations.multi();
+
+                redisOperations.opsForValue().set("tx1", "1");
+                //模拟异常
+                int i = 1/0;
+                redisOperations.opsForValue().set("tx2", "2");
+
+                //提交事务
+                return redisOperations.exec();
+            }
+
+        });
     }
 }

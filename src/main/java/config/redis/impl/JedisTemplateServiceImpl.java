@@ -1,10 +1,7 @@
 package config.redis.impl;
 
 import config.redis.JedisTemplateService;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Repository;
 
@@ -164,6 +161,10 @@ public class JedisTemplateServiceImpl<K, V> implements JedisTemplateService<K, V
     public Long increment(final K key){
         ValueOperations<K, V> operations = redisTemplate.opsForValue();
         return operations.increment(key);
+    }
+
+    public RedisTemplate getTemplate() {
+        return redisTemplate;
     }
 
     public RedisTemplate<K, V> getRedisTemplate() {

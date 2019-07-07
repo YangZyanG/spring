@@ -11,5 +11,6 @@ public class MessageServiceImpl implements MessageService {
 
     public void addMessageLetter(MessageLetter messageLetter) {
         this.messageLetter = messageLetter;
+        System.out.println(messageLetter.toString());
     }
 }

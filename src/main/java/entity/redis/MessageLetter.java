@@ -41,4 +41,8 @@ public class MessageLetter {
     public void setLetter(String letter) {
         this.letter = letter;
     }
+
+    public String toString(){
+        return fromUserId + "-->" + toUserId + "：" + letter;
+    }
 }

@@ -27,4 +27,8 @@ public class CommentEventHandlerServiceImpl implements EventHandlerService {
 
         messageService.addMessageLetter(letter);
     }
+
+    public EventType getEventType(){
+        return EventType.COMMENT;
+    }
 }

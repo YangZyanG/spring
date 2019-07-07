@@ -1,12 +1,17 @@
 package config.test;
 
+import com.alibaba.fastjson.JSONObject;
 import config.redis.JedisTemplateService;
+import config.redis.redisQueue.EventModel;
+import config.redis.redisQueue.EventProducer;
 import config.thread.ThreadPool;
 import entity.redis.EventType;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class ConfigTest {
@@ -36,26 +41,26 @@ public class ConfigTest {
 //        System.out.println(jedisTemplate.sGet("set"));
     }
 
-    public static void main(String[] args) {
-
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("redis.xml");
-        final JedisTemplateService jedis = (JedisTemplateService) applicationContext.getBean("jedisTemplate");
-
-        for (int i=0; i<10; ++i){
-
-            new Thread(){
-
-                public void run(){
-                    for (int i=0; i<100; ++i){
-                        System.out.println(jedis.increment("total"));
-                    }
-                }
-
-            }.start();
-
-        }
-
-    }
+//    public static void main(String[] args) {
+//
+//        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("redis.xml");
+//        final JedisTemplateService jedis = (JedisTemplateService) applicationContext.getBean("jedisTemplate");
+//
+//        for (int i=0; i<10; ++i){
+//
+//            new Thread(){
+//
+//                public void run(){
+//                    for (int i=0; i<100; ++i){
+//                        System.out.println(jedis.increment("total"));
+//                    }
+//                }
+//
+//            }.start();
+//
+//        }
+//
+//    }
 
     @Test
     public void thread() throws Exception {
@@ -67,5 +72,22 @@ public class ConfigTest {
     @Test
     public void enumTest(){
         System.out.println(EventType.COMMENT);
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("redis.xml");
+
+        Thread.currentThread().sleep(5000);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("articleName", "测试文章");
+        map.put("comment", "你在逗我吗？");
+
+        EventProducer eventProducer = (EventProducer) applicationContext.getBean("eventProducer");
+        EventModel model = new EventModel(EventType.COMMENT);
+        model.setTriggerId("1");
+        model.setReceiverId("2");
+        model.setExtraInfo(map);
+
+        eventProducer.pushEvent(model);
     }
 }

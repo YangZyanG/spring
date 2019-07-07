@@ -22,6 +22,43 @@ public class EventModel {
         this.eventType = eventType;
     }
 
+//    public EventType getEventType() {
+//        return eventType;
+//    }
+//
+//    public EventModel setEventType(EventType eventType) {
+//        this.eventType = eventType;
+//        return this;
+//    }
+//
+//    public String getTriggerId() {
+//        return triggerId;
+//    }
+//
+//    public EventModel setTriggerId(String triggerId) {
+//        this.triggerId = triggerId;
+//        return this;
+//    }
+//
+//    public String getReceiverId() {
+//        return receiverId;
+//    }
+//
+//    public EventModel setReceiverId(String receiverId) {
+//        this.receiverId = receiverId;
+//        return this;
+//    }
+//
+//    public Map<String, String> getExtraInfo() {
+//        return extraInfo;
+//    }
+//
+//    public EventModel setExtraInfo(Map<String, String> extraInfo) {
+//        this.extraInfo = extraInfo;
+//        return this;
+//    }
+
+
     public EventType getEventType() {
         return eventType;
     }

@@ -38,6 +38,7 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
             public void run() {
                 while (true){
                     String json = (String) jedisTemplateService.brPop("event", 0);
+                    System.out.println(json);
                     EventModel model = JSONObject.parseObject(json, EventModel.class);
                     if (handlers.containsKey(model.getEventType())){
                         handlers.get(model.getEventType()).doHandle(model);

@@ -1,10 +1,6 @@
-package config.test;
-
-import com.alibaba.fastjson.JSONObject;
 import config.redis.JedisTemplateService;
 import config.redis.redisQueue.EventModel;
 import config.redis.redisQueue.EventProducer;
-import config.thread.ThreadPool;
 import entity.redis.EventType;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;

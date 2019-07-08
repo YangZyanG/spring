@@ -9,6 +9,7 @@ import java.util.Map;
 
 /***
  * ApplicationContextAware用于获取ApplicationContext实例，ApplicationContext也可以获取到容器中所有的bean，并有多种获取方式。
+ * ApplicationContext拥有BeanFactory的全部功能。
  */
 public class ApplicationContextAwareBean implements ApplicationContextAware {
 

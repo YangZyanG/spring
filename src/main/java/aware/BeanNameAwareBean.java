@@ -3,7 +3,7 @@ package aware;
 import org.springframework.beans.factory.BeanNameAware;
 
 /***
- * 实现BeanNameAware用于过去当前bean的name属性
+ * 实现BeanNameAware用于获取当前bean的beanName属性
  */
 public class BeanNameAwareBean implements BeanNameAware {
 

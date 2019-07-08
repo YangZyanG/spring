@@ -4,4 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="beanNameAwareBean" class="aware.BeanNameAwareBean"/>
+
+    <bean id="beanFactoryAwareBean" class="aware.BeanFactoryAwareBean">
+        <meta key="extra" value="this is extra property"/>
+    </bean>
+
+    <import resource="redis.xml"/>
+    <bean id="applicationContextAwareBean" class="aware.ApplicationContextAwareBean"/>
 </beans>

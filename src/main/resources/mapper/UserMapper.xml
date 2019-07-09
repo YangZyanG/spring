@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指定到对应的mapper接口 -->
+<mapper namespace="mysql.mybatis.mapper.UserMapper">
+
+    <!-- id名必须跟mapper接口中的方法名相同 -->
+    <insert id="insert" parameterType="User">
+        insert into user(id, name, age, sex) values(#{id}, #{name}, #{age}, #{sex})
+    </insert>
+
+    <select id="getUser" resultType="User" parameterType="java.lang.String">
+        select * from user where id = #{id}
+    </select>
+</mapper>

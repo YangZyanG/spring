@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- 全局属性 -->
+    <settings>
+        <!--<setting name="cacheEnable" value="false"/>-->
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="defaultExecutorType" value="REUSE"/>
+    </settings>
+
+    <!-- 类别名定义 -->
+    <typeAliases>
+        <typeAlias type="mysql.mybatis.entity.User" alias="User"/>
+    </typeAliases>
+
+    <!-- 环境配置 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="jdbc"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/yangziyang"/>
+                <property name="username" value="root"/>
+                <property name="password" value="yzy10086."/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 指定映射文件和映射类 -->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>

@@ -48,4 +48,11 @@ public class MysqlTest {
             sqlSession.close();
         }
     }
+
+    @Test
+    public void springMybatis(){
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("mysql-spring-mybatis.xml");
+        mysql.spring_mybatis.mapper.UserMapper userMapper = (mysql.spring_mybatis.mapper.UserMapper) applicationContext.getBean("userMapper");
+        System.out.println(userMapper.getUser("1"));
+    }
 }

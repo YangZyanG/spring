@@ -18,7 +18,7 @@ public class MysqlTest {
         UserService userService = (UserService) applicationContext.getBean("userServiceImpl");
 
         User user = new User();
-        user.setId("1");
+        user.setId("3");
         user.setName("yangzy");
         user.setAge(27);
         user.setSex("male");

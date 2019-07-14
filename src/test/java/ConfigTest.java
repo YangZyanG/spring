@@ -97,6 +97,7 @@ public class ConfigTest {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("redis.xml");
         JedisTemplateService jedisTemplate = (JedisTemplateService) applicationContext.getBean("jedisTemplate");
 
+        //方式一
         RedisTemplate template = jedisTemplate.getTemplate();
         template.execute(new SessionCallback<List<Object>>() {
 
@@ -114,5 +115,9 @@ public class ConfigTest {
             }
 
         });
+
+        //方式二
+//        template.setEnableTransactionSupport(true);
+        //后面正常执行multi、exec
     }
 }

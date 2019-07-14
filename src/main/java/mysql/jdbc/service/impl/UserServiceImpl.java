@@ -20,6 +20,9 @@ public class UserServiceImpl implements UserService {
         jdbcTemplate.update("insert into user (id, name, age, sex) values (?, ?, ?, ?)",
                 new Object[]{user.getId(), user.getName(), user.getAge(), user.getSex()},
                 new int[]{Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.VARCHAR});
+
+        //默认情况下spring事务处理只对RuntimeException方法做事务回滚
+//        throw new RuntimeException();
     }
 
     public List<User> getUsers() {

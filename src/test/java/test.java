@@ -1,17 +1,24 @@
 import abstractBean.LookupMethodAbstract;
+import applicationContext.YohiTripApplicationContext;
 import bean.ChangeMe;
 import bean.ImportBean;
 import bean.MyTestBean;
+import bean.cycle.CycleA;
+import beanFactoryPostProcessor.MysqlAccount;
 import customize.bean.User;
 import factoryBean.Car;
 import factoryBean.CarFactoryBean;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+import java.io.IOException;
 
 public class test {
 
@@ -26,10 +33,25 @@ public class test {
     }
 
     @Test
+    @Lookup()
+    public void test_1() throws IOException {
+        Resource resource = new ClassPathResource("1");
+        resource.getInputStream();
+        System.out.println(resource.exists());
+    }
+
+    @Test
     public void lookupMethod(){
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         LookupMethodAbstract lookupMethodAbstract = (LookupMethodAbstract) applicationContext.getBean("lookupMethod");
         lookupMethodAbstract.showMe();
+    }
+
+    @Test
+    public void myApplicationContext(){
+        ApplicationContext applicationContext = new YohiTripApplicationContext("myFactoryBean.xml");
+        MysqlAccount mysqlAccount = (MysqlAccount) applicationContext.getBean("mysqlAccount");
+        System.out.println(mysqlAccount.getUsername());
     }
 
     @Test
@@ -72,6 +94,7 @@ public class test {
 
     @Test
     public void cycle(){
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("myFactoryBean.xml");
+        BeanFactory factory = new XmlBeanFactory(new ClassPathResource("myFactoryBean.xml"));
+        CycleA a = (CycleA) factory.getBean("cycleA");
     }
 }

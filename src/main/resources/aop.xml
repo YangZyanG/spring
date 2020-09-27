@@ -5,23 +5,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!-- xml -->
+    <bean id="userService" class="aop.xml.UserService"/>
+    <bean id="logService" class="aop.xml.LogService"/>
+
+    <aop:config>
+        <aop:aspect ref="logService">
+            <aop:pointcut id="pointcut" expression="execution(public void aop.xml.UserService.insert(..))"/>
+            <aop:before method="before" pointcut-ref="pointcut"/>
+            <aop:after method="after" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- annotate -->
     <aop:aspectj-autoproxy/>
-
-    <!-- aop使用动态代理或者CGlib来为目标对象创建代理。
-         如果目标对象至少实现了一个接口，那么aop会使用动态代理来为目标对象创建代理，且该目标类型的接口的实现都将被代理。
-         如果目标对象没有实现任何接口，则会使用CGlib创建代理。
-    -->
-    <!-- 如果你想强制使用CGlib代理，设置proxy-target-class="true" -->
-    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
-
-    <!-- 正常情况下，切入点方法内再次调用同一个目标对象的另一个切入点方法，第二个方法将不会有增加效果，除非设置了expose-proxy="true" -->
-    <!--<aop:aspectj-autoproxy expose-proxy="true"/>-->
-
-    <!-- 使用CGlib，因为是对目标对象生成子类代理，所以如果目标对象的方法用final修饰，那么将无法代理 -->
-
-    <bean id="student_1" class="aop.pojo.Student_1"/>
-    <bean id="student_2" class="aop.pojo.Student_2"/>
-
-    <bean class="aop.advisor.AspectJ_Exam"/>
-
+    <bean id="userService_1" class="aop.annotate.UserService"/>
+    <bean id="logService_1" class="aop.annotate.LogService"/>
 </beans>

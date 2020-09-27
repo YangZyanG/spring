@@ -1,11 +1,15 @@
 package bean.cycle;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class CycleB {
 
+    @Autowired
     private CycleA a;
 
     public CycleB(){
-        a = new CycleA();
     }
 
     public CycleA getA() {

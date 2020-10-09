@@ -9,16 +9,16 @@
     <bean id="userService" class="aop.xml.UserService"/>
     <bean id="logService" class="aop.xml.LogService"/>
 
-    <aop:config>
+    <aop:config expose-proxy="true" proxy-target-class="true">
         <aop:aspect ref="logService">
-            <aop:pointcut id="pointcut" expression="execution(public void aop.xml.UserService.insert(..))"/>
-            <aop:before method="before" pointcut-ref="pointcut"/>
-            <aop:after method="after" pointcut-ref="pointcut"/>
+            <aop:pointcut id="log" expression="execution(public void aop.xml.UserService.insert(..))"/>
+            <aop:before method="before" pointcut-ref="log"/>
+            <aop:after method="after" pointcut-ref="log"/>
         </aop:aspect>
     </aop:config>
 
     <!-- annotate -->
-    <aop:aspectj-autoproxy/>
-    <bean id="userService_1" class="aop.annotate.UserService"/>
-    <bean id="logService_1" class="aop.annotate.LogService"/>
+    <!--<aop:aspectj-autoproxy expose-proxy="true"/>-->
+    <!--<bean id="userService_1" class="aop.annotate.UserService"/>-->
+    <!--<bean id="logService_1" class="aop.annotate.LogService"/>-->
 </beans>

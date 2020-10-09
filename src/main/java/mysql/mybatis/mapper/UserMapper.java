@@ -1,6 +1,6 @@
 package mysql.mybatis.mapper;
 
-import mysql.mybatis.entity.User;
+import mysql.entity.User;
 
 public interface UserMapper {
 

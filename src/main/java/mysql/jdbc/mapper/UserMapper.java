@@ -1,6 +1,6 @@
 package mysql.jdbc.mapper;
 
-import mysql.jdbc.entity.User;
+import mysql.entity.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

@@ -33,6 +33,12 @@ public class test {
     }
 
     @Test
+    public void TestAnnotation(){
+        BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("annotation.xml"));
+        MyTestBean myTestBean = (MyTestBean) beanFactory.getBean("testAnnotation");
+    }
+
+    @Test
     @Lookup()
     public void test_1() throws IOException {
         Resource resource = new ClassPathResource("1");

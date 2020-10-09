@@ -1,5 +1,6 @@
 package applicationContext;
 
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -28,5 +29,9 @@ public class YohiTripApplicationContext extends ClassPathXmlApplicationContext {
     protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory){
         beanFactory.registerResolvableDependency(ApplicationContext.class, this);
         super.prepareBeanFactory(beanFactory);
+    }
+
+    protected void postProcessBeanFactory(BeanFactory beanFactory){
+
     }
 }

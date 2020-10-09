@@ -1,6 +1,7 @@
 package mysql.jdbc.service.impl;
 
-import mysql.jdbc.entity.User;
+
+import mysql.entity.User;
 import mysql.jdbc.mapper.UserMapper;
 import mysql.jdbc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

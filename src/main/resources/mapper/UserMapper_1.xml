@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace必须指定到对应的mapper接口 -->
-<mapper namespace="mysql.mybatis.mapper.UserMapper">
+<mapper namespace="mysql.springmybatis.UserMapper">
 
     <!-- id名必须跟mapper接口中的方法名相同 -->
     <insert id="insert" parameterType="User">

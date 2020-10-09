@@ -1,4 +1,5 @@
-import mysql.jdbc.entity.User;
+
+import mysql.entity.User;
 import mysql.jdbc.service.UserService;
 import mysql.mybatis.mapper.UserMapper;
 import mysql.mybatis.util.MybatisUtil;
@@ -41,9 +42,11 @@ public class MysqlTest {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try{
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            mysql.mybatis.entity.User user = new mysql.mybatis.entity.User("2222", "yangziyang", 27, "male");
-            userMapper.insert(user);
-            sqlSession.commit();
+//            User user = new User("2222", "yangziyang", 27, "male");
+//            userMapper.insert(user);
+//            sqlSession.commit();
+            User user = userMapper.getUser("2222");
+            System.out.println(user.getId() + ", " + user.getName() + ", " + user.getAge() + ", " + user.getSex());
         }finally {
             sqlSession.close();
         }
@@ -52,7 +55,8 @@ public class MysqlTest {
     @Test
     public void springMybatis(){
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("mysql-spring-mybatis.xml");
-        mysql.spring_mybatis.mapper.UserMapper userMapper = (mysql.spring_mybatis.mapper.UserMapper) applicationContext.getBean("userMapper");
-        System.out.println(userMapper.getUser("1"));
+        mysql.springmybatis.UserMapper userMapper = (mysql.springmybatis.UserMapper) applicationContext.getBean("userMapper");
+        User user = userMapper.getUser("2222");
+        System.out.println(user.getId() + ", " + user.getName() + ", " + user.getAge() + ", " + user.getSex());
     }
 }

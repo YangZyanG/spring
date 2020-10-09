@@ -1,6 +1,6 @@
 package mysql.jdbc.service;
 
-import mysql.jdbc.entity.User;
+import mysql.entity.User;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -21,15 +21,15 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!-- sqlSessionFactoryBean方式 -->
-    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
-        <!--<property name="mapperInterface" value="mysql.spring_mybatis.mapper.UserMapper"/>-->
-        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
-    <!--</bean>-->
+    <!-- MapperFactoryBean方式 -->
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="mysql.springmybatis.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
 
     <!-- MapperScannerConfigurer扫描方式 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="mysql.spring_mybatis"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-    </bean>
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--<property name="basePackage" value="mysql.spring_mybatis"/>-->
+        <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
+    <!--</bean>-->
 </beans>

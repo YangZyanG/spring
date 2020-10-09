@@ -1,4 +1,4 @@
-package mysql.jdbc.entity;
+package mysql.entity;
 
 public class User {
 
